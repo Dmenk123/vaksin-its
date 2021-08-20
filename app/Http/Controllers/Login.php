@@ -57,6 +57,7 @@ class Login extends Controller
                 $request->session()->put('logged_in', 'true');
                 $request->session()->put('logged_in.id', $cek->id);
                 $request->session()->put('logged_in.nama', $cek->nama);
+                $request->session()->put('logged_in.nip', $cek->nip);
                 $request->session()->put('logged_in.username', $cek->username);
                 // $request->session()->put('logged_in.role', $cek->role);
                 $request->session()->regenerate();

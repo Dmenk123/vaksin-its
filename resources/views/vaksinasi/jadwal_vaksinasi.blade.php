@@ -42,7 +42,7 @@
                         $cek_tgl = \Carbon\Carbon::now()->between($tgl_mulai, $tgl_akhir);
                     @endphp
                     <div class="card-list-item">
-                        <a href="@if ($cek_tgl == false){{ url('#') }}@else @if (\App\Models\T_pendaftaran::CounterPendaftar($item->id_vaksinasi) >= (int)$item->kuota) {{ url('#') }} @else {{route('app.vaksinasi_detail',['id' => $item->id])}} @endif @endif">
+                        <a href="@if ($cek_tgl == false){{ url('#') }}@else @if (\App\Models\T_pendaftaran::CounterPendaftar($item->id) >= (int)$item->kuota) {{ url('#') }} @else {{route('app.vaksinasi_detail',['id' => $item->id])}} @endif @endif">
                             <div class="d-flex justify-content-between align-items-center sc-link">
                                 <div class="media">
                                 <div class="wd-40 ht-40 bg-its-icon tx-color-its mg-r-15 mg-md-r-15 d-flex align-items-center justify-content-center rounded-its"><i data-feather="calendar"></i></div>
@@ -57,7 +57,7 @@
                                             <span class="tx-13"><span class="tx-danger"><i class="far fa-times-circle mg-r-5"></i>Pendaftaran ditutup</span></span>
                                         @endif
                                     @else
-                                        @if (\App\Models\T_pendaftaran::CounterPendaftar($item->id_vaksinasi) >= (int)$item->kuota)
+                                        @if (\App\Models\T_pendaftaran::CounterPendaftar($item->id) >= (int)$item->kuota)
                                             <span class="tx-13"><span class="tx-danger"><i class="far fa-times-circle mg-r-5"></i>Pendaftaran ditutup</span></span>
                                         @else
                                             <span class="tx-13"><span class="tx-info"><i class="far fa-play-circle mg-r-5"></i>Pendaftaran dibuka</span></span>

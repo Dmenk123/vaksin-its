@@ -10,12 +10,8 @@
                     <div class="avatar avatar-sm"><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" class="rounded-circle" alt=""></div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right allow-focus">
-                    <h5 class="tx-medium tx-montserrat mg-b-5">Nama</h5>
-                    <p class="mg-b-25 tx-13 tx-color-03">NRP/NIP</p>
-                    <a href="" class="dropdown-item" data-toggle="modal" data-target="#chgRoleUser" data-animation="effect-scale">
-                    <i data-feather="users"></i>Ganti hak akses
-                    </a>
-                    <a href="" class="dropdown-item  ht-30"><i data-feather="home"></i>myITS SSO</a>
+                    <h5 class="tx-medium tx-montserrat mg-b-5">{{\Session::get('logged_in')['nama']}}</h5>
+                    <p class="mg-b-25 tx-13 tx-color-03">{{\Session::get('logged_in')['nip']}}</p>
                     <a href="../dashboard/login-mhs.html" class="dropdown-item ht-30"><i data-feather="log-out"></i>Keluar</a>
                 </div>
             </div>

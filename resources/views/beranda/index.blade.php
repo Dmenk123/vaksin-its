@@ -2,30 +2,32 @@
 
 @section('content')
 
-@extends('layout.sidebar')
+@include('layout.navbar')
 
-<div class="content ht-100v pd-0" style="position: relative">
-    <div class="content-header align-items-center justify-content-start pos-fixed wd-100p z-index-10">
-  <div>
-      <a href="../../index.html" class="tx-montserrat tx-semibold tx-18 d-lg-none">myITS Vaksin</a>
-  </div>
-  <nav class="nav r-25 pos-fixed z-index-10">
-      <div class="dropdown dropdown-profile allow-focus">
-        <a href="" class="dropdown-link" data-toggle="dropdown" data-display="static" aria-expanded="false">
-          <div class="avatar avatar-sm"><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" class="rounded-circle" alt=""></div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right allow-focus">
-          <h5 class="tx-medium tx-montserrat mg-b-5">Nama</h5>
-          <p class="mg-b-25 tx-13 tx-color-03">NRP/NIP</p>
-          <a href="" class="dropdown-item" data-toggle="modal" data-target="#chgRoleUser" data-animation="effect-scale">
-            <i data-feather="users"></i>Ganti hak akses
-          </a>
-          <a href="" class="dropdown-item  ht-30"><i data-feather="home"></i>myITS SSO</a>
-          <a href="../dashboard/login-mhs.html" class="dropdown-item ht-30"><i data-feather="log-out"></i>Keluar</a>
+<div class="content-body ht-100p pd-t-80">
+    <div class="container pd-x-0" id="content">
+
+      <div class="row row-xs">
+
+        <div class="col-sm-12 col-lg-12 mg-b-30">
+          <div class="row row-xs">
+            <div class="col-sm-12 col-lg-12 mg-b-20 d-flex justify-content-center">
+              <a href="#photoprofil" data-toggle="modal" data-animation="effect-scale" class="animated slideInUp">
+                <div class="avatar avatar-xxl">
+                  <img src="{{asset('assets/images/pasfoto.jpg')}}" class="rounded-circle shadow" alt="" data-toggle="tooltip" data-placement="bottom" title="Foto profil">
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-12 col-lg-12 mg-b-10 text-center">
+                <h3 class="mg-b-4 tx-montserrat tx-medium animated slideInUp">{{\Session::get('logged_in')['nama']}}</h3>
+                <p class="mg-b-4 tx-color-03 tx-15 tx-medium animated slideInUp">{{\Session::get('logged_in')['nip']}}</p>
+            </div>
+          </div>
         </div>
-      </div>
-  </nav>
-</div>
+
+      </div><!-- row -->
+    </div><!-- container -->
+  </div>
 
 @endsection
 

@@ -21,7 +21,10 @@ Route::group([
     // 'middleware' => ['user'],
 ], function () {
     Route::get('/riwayat', [Riwayat::class, 'riwayat'])->name('riwayat');
+
     Route::get('/jadwal_vaksin', [Vaksin::class, 'jadwal_vaksin'])->name('jadwal_vaksin');
+    Route::get('/vaksinasi_detail', [Vaksin::class, 'vaksinasi_detail'])->name('vaksinasi_detail');
+
     // ###################### APBD #######################
     // Route::post('/datatable_apbd_sby', [Apbd::class, 'datatable_apbd_sby'])->name('datatable_apbd_sby');
     // Route::get('/get_list_api_adpem', [Apbd::class, 'get_list_api_adpem'])->name('get_list_api_adpem');

@@ -87,7 +87,7 @@
                 <div class="card-body card-alert-success d-flex justify-content-between align-items-center">
                     <span class="tx-montserrat tx-medium d-flex align-items-center"><i class="fa-lg fas fa-check-circle mg-l-10 mg-r-15 tx-success"></i>Kuota tersedia.</span>
                     <form class="z-index-10">
-                      <button type="submit" class="btn btn-its tx-montserrat tx-semibold">Daftar Vaksinasi</button>
+                      <button type="button" onclick="daftarVaksinasi('{{$data['jadwal']->id}}')" class="btn btn-its tx-montserrat tx-semibold">Daftar Vaksinasi</button>
                     </form>
                 </div>
             </div>
@@ -96,6 +96,60 @@
       </div><!-- row -->
     </div><!-- container -->
   </div>
+
+  <div class="modal fade" id="modal_form_daftar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_form_daftar_title">Formulir Pendaftaran Vaksinasi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">Nama</label>
+                      <input type="text" class="form-control" id="f_id" name="f_id">
+                      <input type="text" class="form-control" id="f_nama" name="f_nama" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">Nik</label>
+                      <input type="text" class="form-control" id="f_nik" name="f_nik" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Usia</label>
+                        <input type="text" class="form-control" id="f_usia" name="f_usia" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Jenis Kelamin</label>
+                      <select class="form-control" id="f_jk" name="f_jk" required>
+                        <option value="">-- pilih salah satu --</option>
+                        <option value="Laki-Laki">Laki-Laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Pekerjaan</label>
+                        <input type="text" class="form-control" id="f_pekerjaan" name="f_pekerjaan" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea1">Alamat Domisili</label>
+                      <textarea class="form-control" id="f_alamat_domisili" name="f_alamat_domisili" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Alamat KTP</label>
+                        <textarea class="form-control" id="f_alamat_ktp" name="f_alamat_ktp" rows="3"></textarea>
+                      </div>
+                  </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="simpanVaksinasi()">Daftar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 
@@ -130,8 +184,25 @@ $(document).ready( function () {
 
 });
 
-const gantiTanggal = (tgl) => {
-    location.href = "{{route('index')}}?tgl="+tgl;
+const daftarVaksinasi = (id) => {
+    $('#modal_form_daftar').modal('show');
+}
+
+const simpanVaksinasi = () => {
+   Swal.fire({
+        title: 'Yakin Mendaftar Vaksinasi ?',
+        text: "Peringatan, dilarang memanipulasi data diri anda.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Daftar Sekarang !'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+        }
+    })
+
 }
 
 </script>

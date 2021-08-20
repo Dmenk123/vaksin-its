@@ -97,6 +97,7 @@
 
 <script src="{{asset('assets/template_web/js/dashforge.js')}}"></script>
 <script src="{{asset('assets/template_web/js/dashforge.aside.js')}}"></script>
+<script src="{{asset('assets/js')}}/sweetalert2@10.js"></script>
 
 <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
 <!-- page script -->

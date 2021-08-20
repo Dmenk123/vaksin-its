@@ -17,10 +17,23 @@ class Vaksin extends Controller
         ]);
     }
 
-    public function vaksinasi_detail()
+    public function vaksinasi_detail($id)
     {
+        $jadwal = \App\Models\T_vaksinasi::where('id', $id)->first();
+
+        if($jadwal) {
+            $cek_kuota = \App\Models\T_pendaftaran::CounterPendaftar($id);
+            if($cek_kuota >= (int)$jadwal->kuota) {
+                abort(404);
+            }
+         }else{
+            abort(404);
+        }
+
 		return view("vaksinasi.vaksinasi_detail")->with([
-            'data' => []
+            'data' => [
+                'jadwal' => $jadwal
+            ]
         ]);
     }
 }

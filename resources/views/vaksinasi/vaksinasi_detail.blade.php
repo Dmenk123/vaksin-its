@@ -37,8 +37,8 @@
                 <div class="col-10 col-sm-10 col-lg-10 d-flex align-items-center">
                   <div class="d-flex align-items-center">
                     <div>
-                      <h5 class="tx-medium tx-montserrat mg-b-0">Sabtu, 03 Apr 2021</h5>
-                      <p class="mg-b-5">07.00 - 12.00</p>
+                      <h5 class="tx-medium tx-montserrat mg-b-0">{{\Carbon\Carbon::parse($data['jadwal']->tgl_pelaksanaan)->translatedFormat('d F Y')}}</h5>
+                      <p class="mg-b-5">{{\Carbon\Carbon::parse($data['jadwal']->jam_pelaksanaan_mulai)->format('H:i')}} - {{\Carbon\Carbon::parse($data['jadwal']->jam_pelaksanaan_akhir)->format('H:i')}}</p>
                       <span class="tx-13"><span class="tx-info"><i class="far fa-play-circle mg-r-5"></i>Pendaftaran dibuka</span></span>
                     </div>
                   </div>
@@ -49,33 +49,33 @@
               <p class="tx-medium tx-15">Tentang Vaksinasi Ini</p>
               <div class="card-list-text">
                 <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Vaksinator</span>
-                <p class="mg-b-0">RSU Haji</p>
+                <p class="mg-b-0">{{$data['jadwal']->vaksinator}}</p>
               </div>
               <div class="card-list-text">
                 <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Jenis Vaksin</span>
-                <p class="mg-b-0">Coronavac</p>
+                <p class="mg-b-0">{{$data['jadwal']->jenis_vaksin}}</p>
               </div>
               <div class="card-list-text">
                 <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Pendaftaran</span>
-                <p class="mg-b-0">20 Mar 2021 - 31 Mar 2021</p>
+                <p class="mg-b-0">{{\Carbon\Carbon::parse($data['jadwal']->tgl_pendaftaran_mulai)->translatedFormat('d F Y')}} - {{\Carbon\Carbon::parse($data['jadwal']->tgl_pendaftaran_akhir)->translatedFormat('d F Y')}}</p>
               </div>
               <hr class="mg-t-20 mg-b-20">
               <p class="tx-medium tx-15">Pelaksanaan</p>
               <div class="card-list-text">
                 <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Tanggal Vaksinasi</span>
-                <p class="mg-b-0">03 Apr 2021</p>
+                <p class="mg-b-0">{{\Carbon\Carbon::parse($data['jadwal']->tgl_pelaksanaan)->translatedFormat('d F Y')}}</p>
               </div>
               <div class="card-list-text">
                 <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Sesi Vaksinasi</span>
-                <p class="mg-b-0">07.00 - 12.00</p>
+                <p class="mg-b-0">{{\Carbon\Carbon::parse($data['jadwal']->jam_pelaksanaan_mulai)->format('H:i')}} - {{\Carbon\Carbon::parse($data['jadwal']->jam_pelaksanaan_akhir)->format('H:i')}}</p>
               </div>
               <div class="card-list-text">
                 <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Lokasi</span>
-                <p class="mg-b-0">Surabaya</p>
+                <p class="mg-b-0">{{$data['jadwal']->lokasi}}</p>
               </div>
               <div class="card-list-text">
                 <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Kuota</span>
-                <p class="mg-b-0">500 orang</p>
+                <p class="mg-b-0">{{$data['jadwal']->kuota}} orang</p>
               </div>
             </div>
           </div>

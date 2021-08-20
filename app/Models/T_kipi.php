@@ -18,10 +18,14 @@ class T_kipi extends Model
         return $query->max("id") + 1;
     }
 
-    // public function scopeCounterPendaftar($query, $id_vaksinasi)
-    // {
-    //     return $query->where(['id_vaksinasi' => $id_vaksinasi, 'deleted_at' => null])->count();
-    // }
+    /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function vaksinasi()
+    {
+        return $this->belongsTo(\App\Models\T_vaksinasi::class, 'id_vaksinasi', 'id');
+    }
 
 }
 

@@ -79,7 +79,7 @@
               </div>
               <div class="card-list-text">
                 <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Vaksinasi Ke</span>
-                <p class="mg-b-0">{{$data['jadwal']->vaksinasi_ke}}1</p>
+                <p class="mg-b-0">{{$data['jadwal']->vaksinasi_ke}}</p>
               </div>
             </div>
           </div>
@@ -96,8 +96,8 @@
                   </div>
                 </div>
                 <div class="col-2 col-sm-2 col-lg-2 d-flex align-items-center justify-content-end">
-                  <a href="#tambahkipi" data-toggle="modal" data-animation="effect-scale" class="btn btn-white tx-montserrat tx-semibold float-right d-none d-lg-block"><i data-feather="plus" class="wd-10 mg-r-5"></i> Tambah</a>
-                  <a href="#tambahkipi" data-toggle="modal" data-animation="effect-scale" class="btn btn-white btn-icon tx-montserrat tx-medium float-right d-lg-none"><i data-feather="plus"></i></a>
+                  <button type="button" data-animation="effect-scale" class="btn btn-white tx-montserrat tx-semibold float-right d-none d-lg-block" onclick="tambahKipi('{{$data['jadwal']->id}}')"><i data-feather="plus" class="wd-10 mg-r-5"></i> Tambah</button>
+                  {{-- <a href="#tambahkipi" data-toggle="modal" data-animation="effect-scale" class="btn btn-white btn-icon tx-montserrat tx-medium float-right d-lg-none"><i data-feather="plus"></i></a> --}}
                 </div>
               </div>
             </div>
@@ -114,15 +114,23 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @if ($data['kipi']->isNotEmpty())
+                        @foreach ($data['kipi'] as $valuenya)
+                        <tr>
+                            <td class="td-its tx-medium align-middle border-bottom">{{Carbon\Carbon::parse($valuenya->tanggal)->translatedFormat('d F Y')}}</td>
+                            <td class="td-its align-middle border-bottom">{{$valuenya->gejala}}</td>
+                            <td class="td-its align-middle border-bottom">{{$valuenya->tindakan}}</td>
+                            <td class="td-its align-middle border-bottom">{{($valuenya->is_hub_dokter == '1') ? 'Sudah' : 'Belum'}}</td>
+                            <td class="td-its align-middle border-bottom tx-color-03">
+                              <button type="button" onclick="haspusKipi('{{$valuenya->id}}')" data-animation="effect-scale"  class="btn btn-white btn-icon" role="button" data-toggle="modal" data-target="#hapuskipi" data-animation="effect-scale"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash wd-10"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                            </td>
+                          </tr>
+                        @endforeach
+                    @else
                     <tr>
-                      <td class="td-its tx-medium align-middle border-bottom">20 Mar 2021</td>
-                      <td class="td-its align-middle border-bottom">Pilek</td>
-                      <td class="td-its align-middle border-bottom">Obat pilek</td>
-                      <td class="td-its align-middle border-bottom">Sudah</td>
-                      <td class="td-its align-middle border-bottom tx-color-03">
-                        <a href="#hapuskipi" data-toggle="modal" data-animation="effect-scale"  class="btn btn-white btn-icon" role="button" data-toggle="modal" data-target="#hapuskipi" data-animation="effect-scale"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash wd-10"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
-                      </td>
+                        <td class="td-its tx-medium align-middle border-bottom" colspan="5">Belum Ada Data...</td>
                     </tr>
+                    @endif
                   </tbody>
                 </table>
               </div>
@@ -138,7 +146,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal_form_daftar_title">Formulir Pendaftaran Vaksinasi</h5>
+                <h5 class="modal-title" id="modal_form_daftar_title">Formulir Tambah KIPI</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -147,42 +155,38 @@
                 <form id="formDaftar">
                     @csrf
                     <div class="form-group">
-                      <label for="exampleFormControlInput1">Nama</label>
+                      <label for="exampleFormControlInput1">Tanggal</label>
                       <input type="hidden" class="form-control" id="f_id" name="f_id">
-                      <input type="text" class="form-control" id="f_nama" name="f_nama" required>
+                      <input type="text" class="form-control datepickerNow" name="f_tanggal" id="f_tanggal" autocomplete="off" placeholder="- Pilih Tanggal -" style="cursor: pointer;" value="{{\Carbon\Carbon::now()->format('d-m-Y')}}">
                     </div>
                     <div class="form-group">
-                      <label for="exampleFormControlInput1">Nik</label>
-                      <input type="text" class="form-control" id="f_nik" name="f_nik" required>
+                        <label for="exampleFormControlSelect1">Peserta</label>
+                        <select class="form-control" id="f_id_pendaftaran" name="f_id_pendaftaran" required>
+                            <option value="">-- pilih salah satu --</option>
+                            @foreach (\App\Models\T_pendaftaran::get() as $k => $v)
+                            <option value="{{$v->id}}">NIK : {{$v->nik}} - Nama : {{$v->nama}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Usia</label>
-                        <input type="text" class="form-control" id="f_usia" name="f_usia" required>
+                        <label for="exampleFormControlInput1">Gejala</label>
+                        <input type="text" class="form-control" id="f_gejala" name="f_gejala" required>
                     </div>
                     <div class="form-group">
-                      <label for="exampleFormControlSelect1">Jenis Kelamin</label>
-                      <select class="form-control" id="f_jk" name="f_jk" required>
-                        <option value="">-- pilih salah satu --</option>
-                        <option value="Laki-Laki">Laki-Laki</option>
-                        <option value="Perempuan">Perempuan</option>
+                      <label for="exampleFormControlSelect1">Sudah dihubungi Dokter</label>
+                      <select class="form-control" id="f_is_hub_dokter" name="f_is_hub_dokter" required>
+                        <option value="1">Ya</option>
+                        <option value="0">Tidak</option>
                       </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Pekerjaan</label>
-                        <input type="text" class="form-control" id="f_pekerjaan" name="f_pekerjaan" required>
+                        <label for="exampleFormControlInput1">Tindakan</label>
+                        <input type="text" class="form-control" id="f_tindakan" name="f_tindakan" required>
                     </div>
-                    <div class="form-group">
-                      <label for="exampleFormControlTextarea1">Alamat Domisili</label>
-                      <textarea class="form-control" id="f_alamat_domisili" name="f_alamat_domisili" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Alamat KTP</label>
-                        <textarea class="form-control" id="f_alamat_ktp" name="f_alamat_ktp" rows="3" required></textarea>
-                      </div>
                   </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="simpanVaksinasi()">Daftar</button>
+                <button type="button" class="btn btn-primary" onclick="simpanKipi()">Daftar</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
             </div>
         </div>
@@ -222,40 +226,40 @@ $(document).ready( function () {
 
 });
 
-const daftarVaksinasi = (id) => {
+const tambahKipi = (id) => {
     $('#f_id').val(id);
     $('#modal_form_daftar').modal('show');
 }
 
-const simpanVaksinasi = () => {
+const simpanKipi = () => {
    Swal.fire({
-        title: 'Yakin Mendaftar Vaksinasi ?',
-        text: "Peringatan, dilarang memanipulasi data diri anda.",
+        title: 'Perhatian',
+        text: "Simpan Data KIPI",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Ya, Daftar Sekarang !'
+        confirmButtonText: 'Ya, Simpan Sekarang !'
     }).then((result) => {
         if (result.isConfirmed) {
             let form= $("#formDaftar");
             $.ajax({
                 type: "POST",
-                url: "{{ route('app.vaksinasi_simpan')}}",
+                url: "{{ route('app.kipi_simpan')}}",
                 dataType: "json",
                 data: form.serialize(),
                 success: function (response) {
                     if(response.status == 'success') {
                         Swal.fire(
                             'Sukses!',
-                            'Data Pendaftaran Vaksinasi berhasil Disimpan.',
+                            'Data KIPI berhasil Disimpan.',
                             'success'
                         )
                         location.reload();
                     }else{
                         Swal.fire(
                             'Gagal!',
-                            'Data Pendaftaran Vaksinasi Gagal Disimpan.',
+                            'Data KIPI Gagal Disimpan.',
                             'error'
                         )
                     }
@@ -264,6 +268,44 @@ const simpanVaksinasi = () => {
         }
     })
 
+}
+
+const haspusKipi = (id) => {
+    Swal.fire({
+        title: 'Perhatian',
+        text: "Hapus Data KIPI",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, Hapus Data !'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let form= $("#formDaftar");
+            $.ajax({
+                type: "POST",
+                url: "{{ route('app.kipi_simpan')}}",
+                dataType: "json",
+                data: form.serialize(),
+                success: function (response) {
+                    if(response.status == 'success') {
+                        Swal.fire(
+                            'Sukses!',
+                            'Data KIPI berhasil Disimpan.',
+                            'success'
+                        )
+                        location.reload();
+                    }else{
+                        Swal.fire(
+                            'Gagal!',
+                            'Data KIPI Gagal Disimpan.',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+    })
 }
 
 </script>

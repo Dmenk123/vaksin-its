@@ -23,6 +23,7 @@ Route::group([
     Route::get('/riwayat', [Riwayat::class, 'riwayat'])->name('riwayat');
     Route::get('/riwayat_detail/{id}', [Riwayat::class, 'riwayat_detail'])->name('riwayat_detail');
     Route::post('/kipi_simpan', [Riwayat::class, 'kipi_simpan'])->name('kipi_simpan');
+    Route::post('/kipi_hapus', [Riwayat::class, 'kipi_hapus'])->name('kipi_hapus');
 
     Route::get('/jadwal_vaksin', [Vaksin::class, 'jadwal_vaksin'])->name('jadwal_vaksin');
     Route::get('/vaksinasi_detail/{id}', [Vaksin::class, 'vaksinasi_detail'])->name('vaksinasi_detail');

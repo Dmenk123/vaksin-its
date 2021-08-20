@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\T_kipi;
+use App\Models\T_vaksinasi;
 use Illuminate\Http\Request;
+use App\Models\T_pendaftaran;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
+
 class Riwayat extends Controller
 {
     public function riwayat()
     {
-    	$jadwal = \App\Models\T_vaksinasi::orderBy('created_at','desc')->get();
+    	$jadwal = T_vaksinasi::orderBy('created_at','desc')->get();
 
 		return view("riwayat.index")->with([
             'data' => [
@@ -19,12 +24,12 @@ class Riwayat extends Controller
 
     public function riwayat_detail($id)
     {
-        $jadwal = \App\Models\T_vaksinasi::where('id', $id)->first();
+        $jadwal = T_vaksinasi::where('id', $id)->first();
 
 
         if($jadwal) {
-            $kipi = \App\Models\T_kipi::with('vaksinasi')->where('id_vaksinasi', $id)->get();
-            $cek_kuota = \App\Models\T_pendaftaran::CounterPendaftar($id);
+            $kipi = T_kipi::with('vaksinasi')->where('id_vaksinasi', $id)->get();
+            $cek_kuota = T_pendaftaran::CounterPendaftar($id);
             if($cek_kuota >= (int)$jadwal->kuota) {
                 abort(404);
             }
@@ -46,7 +51,7 @@ class Riwayat extends Controller
         ## maaf bapak/ibu validasinya belum
 
         $new_data = new \App\Models\T_kipi();
-        \DB::beginTransaction();
+        DB::beginTransaction();
         $new_data->id_pendaftaran = $request->f_id_pendaftaran;
         $new_data->id_vaksinasi = $request->f_id;
         $new_data->tanggal = \Carbon\Carbon::parse($request->f_tanggal)->format('Y-m-d');
@@ -58,14 +63,14 @@ class Riwayat extends Controller
         try {
             $new_data->save();
 
-            \DB::commit();
+            DB::commit();
 
             return \Response::json([
                 "status"    => "success",
                 "message"    => 'Berhasil Melakukan Simpan Data',
             ]);
         } catch (\Exception $e) {
-            \DB::rollback();
+            DB::rollback();
             // dd($e);
             return \Response::json([
                 "status"    => "error",
@@ -73,5 +78,34 @@ class Riwayat extends Controller
             ]);
         }
 
+    }
+
+    public function kipi_hapus(Request $request)
+    {
+        $kipi = \App\Models\T_kipi::where('id', $request->id)->first();
+        if($kipi) {
+            try {
+                DB::beginTransaction();
+                $kipi->delete();
+                DB::commit();
+
+                return \Response::json([
+                    "status"    => "success",
+                    "message"    => 'Berhasil Melakukan Simpan Data',
+                ]);
+            } catch (\Exception $e) {
+                DB::rollback();
+                // dd($e);
+                return \Response::json([
+                    "status"    => "error",
+                    "message"    => 'Gagal Melakukan Simpan Data',
+                ]);
+            }
+        }else{
+            return \Response::json([
+                "status"    => "error",
+                "message"    => 'Gagal Melakukan Simpan Data',
+            ]);
+        }
     }
 }

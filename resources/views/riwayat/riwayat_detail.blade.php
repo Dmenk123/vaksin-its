@@ -25,7 +25,7 @@
         <div class="d-lg-none mg-t-10">
         </div>
         <div>
-          <a href="vaksinasi.html"  class="btn btn-white tx-montserrat tx-semibold"><i data-feather="arrow-left" class="wd-10 mg-r-5"></i> Kembali</a>
+          <a href="{{route('app.riwayat')}}"  class="btn btn-white tx-montserrat tx-semibold"><i data-feather="arrow-left" class="wd-10 mg-r-5"></i> Kembali</a>
         </div>
       </div>
 
@@ -128,7 +128,7 @@
                         @endforeach
                     @else
                     <tr>
-                        <td class="td-its tx-medium align-middle border-bottom" colspan="5">Belum Ada Data...</td>
+                        <td class="td-its tx-medium align-middle border-bottom" colspan="5" align="center">Belum Ada Data...</td>
                     </tr>
                     @endif
                   </tbody>
@@ -197,8 +197,6 @@
 
 @section('js')
 <script>
-
-    let tanggal = "{{(\Request::get('tgl')) ? \Carbon\Carbon::parse(\Request::get('tgl'))->format('Y-m-d') : \Carbon\Carbon::now()->format('Y-m-d')}}";
 
     $.ajaxSetup({
         headers: {
@@ -281,24 +279,23 @@ const haspusKipi = (id) => {
         confirmButtonText: 'Ya, Hapus Data !'
     }).then((result) => {
         if (result.isConfirmed) {
-            let form= $("#formDaftar");
             $.ajax({
                 type: "POST",
-                url: "{{ route('app.kipi_simpan')}}",
+                url: "{{ route('app.kipi_hapus')}}",
                 dataType: "json",
-                data: form.serialize(),
+                data: {id:id},
                 success: function (response) {
                     if(response.status == 'success') {
                         Swal.fire(
                             'Sukses!',
-                            'Data KIPI berhasil Disimpan.',
+                            'Data KIPI berhasil Dihapus.',
                             'success'
                         )
                         location.reload();
                     }else{
                         Swal.fire(
                             'Gagal!',
-                            'Data KIPI Gagal Disimpan.',
+                            'Data KIPI Gagal Dihapus.',
                             'error'
                         )
                     }

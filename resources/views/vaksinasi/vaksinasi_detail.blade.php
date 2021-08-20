@@ -25,7 +25,7 @@
         <div class="d-lg-none mg-t-10">
         </div>
         <div>
-          <a href="vaksinasi.html"  class="btn btn-white tx-montserrat tx-semibold"><i data-feather="arrow-left" class="wd-10 mg-r-5"></i> Kembali</a>
+          <a href="{{route('app.jadwal_vaksin')}}"  class="btn btn-white tx-montserrat tx-semibold"><i data-feather="arrow-left" class="wd-10 mg-r-5"></i> Kembali</a>
         </div>
       </div>
 

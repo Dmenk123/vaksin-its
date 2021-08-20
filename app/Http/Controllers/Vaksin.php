@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\T_vaksinasi;
 use Illuminate\Http\Request;
+use App\Models\T_pendaftaran;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
+
 class Vaksin extends Controller
 {
     public function jadwal_vaksin()
     {
-    	$jadwal = \App\Models\T_vaksinasi::orderBy('created_at','desc')->get();
+    	$jadwal = T_vaksinasi::orderBy('created_at','desc')->get();
 
 		return view("vaksinasi.jadwal_vaksinasi")->with([
             'data' => [
@@ -19,10 +24,10 @@ class Vaksin extends Controller
 
     public function vaksinasi_detail($id)
     {
-        $jadwal = \App\Models\T_vaksinasi::where('id', $id)->first();
+        $jadwal = T_vaksinasi::where('id', $id)->first();
 
         if($jadwal) {
-            $cek_kuota = \App\Models\T_pendaftaran::CounterPendaftar($id);
+            $cek_kuota = T_pendaftaran::CounterPendaftar($id);
             if($cek_kuota >= (int)$jadwal->kuota) {
                 abort(404);
             }
@@ -43,8 +48,8 @@ class Vaksin extends Controller
 
         ## maaf bapak/ibu validasinya belum
 
-        $new_data = new \App\Models\T_pendaftaran();
-        \DB::beginTransaction();
+        $new_data = new T_pendaftaran();
+        DB::beginTransaction();
 
         $new_data->nama = $request->f_nama;
         $new_data->nik = $request->f_nik;
@@ -53,20 +58,20 @@ class Vaksin extends Controller
         $new_data->alamat_ktp = $request->f_alamat_ktp;
         $new_data->jk = $request->f_jk;
         $new_data->pekerjaan = $request->f_pekerjaan;
-        $new_data->created_at = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+        $new_data->created_at = Carbon::now()->format('Y-m-d H:i:s');
         $new_data->id_vaksinasi = $request->f_id;
 
         try {
             $new_data->save();
 
-            \DB::commit();
+            DB::commit();
 
             return \Response::json([
                 "status"    => "success",
                 "message"    => 'Berhasil Melakukan Simpan Data',
             ]);
         } catch (\Exception $e) {
-            \DB::rollback();
+            DB::rollback();
             // dd($e);
             return \Response::json([
                 "status"    => "error",

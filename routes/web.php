@@ -25,6 +25,8 @@ Route::group([
     Route::get('/jadwal_vaksin', [Vaksin::class, 'jadwal_vaksin'])->name('jadwal_vaksin');
     Route::get('/vaksinasi_detail/{id}', [Vaksin::class, 'vaksinasi_detail'])->name('vaksinasi_detail');
 
+    Route::post('/vaksinasi_simpan', [Vaksin::class, 'vaksinasi_simpan'])->name('vaksinasi_simpan');
+
     // ###################### APBD #######################
     // Route::post('/datatable_apbd_sby', [Apbd::class, 'datatable_apbd_sby'])->name('datatable_apbd_sby');
     // Route::get('/get_list_api_adpem', [Apbd::class, 'get_list_api_adpem'])->name('get_list_api_adpem');

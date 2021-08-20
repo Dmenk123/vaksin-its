@@ -214,7 +214,7 @@ const simpanVaksinasi = () => {
                             'Data Pendaftaran Vaksinasi berhasil Disimpan.',
                             'success'
                         )
-                        location.reload();
+                        window.location.href = "{{ route('app.jadwal_vaksin')}}";
                     }else{
                         Swal.fire(
                             'Gagal!',

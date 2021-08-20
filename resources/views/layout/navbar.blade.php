@@ -1,7 +1,7 @@
 
     <div class="content-header align-items-center justify-content-start pos-fixed wd-100p z-index-10">
         <div>
-            <a href="../../index.html" class="tx-montserrat tx-semibold tx-18 d-lg-none">myITS Vaksin</a>
+            <a href="{{route('index')}}" class="tx-montserrat tx-semibold tx-18 d-lg-none">myITS Vaksin</a>
         </div>
 
         <nav class="nav r-25 pos-fixed z-index-10">
@@ -12,7 +12,7 @@
                 <div class="dropdown-menu dropdown-menu-right allow-focus">
                     <h5 class="tx-medium tx-montserrat mg-b-5">{{\Session::get('logged_in')['nama']}}</h5>
                     <p class="mg-b-25 tx-13 tx-color-03">{{\Session::get('logged_in')['nip']}}</p>
-                    <a href="../dashboard/login-mhs.html" class="dropdown-item ht-30"><i data-feather="log-out"></i>Keluar</a>
+                    <a href="{{route('app.logout')}}" class="dropdown-item ht-30"><i data-feather="log-out"></i>Keluar</a>
                 </div>
             </div>
         </nav>

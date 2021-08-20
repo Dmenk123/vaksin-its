@@ -30,40 +30,61 @@
                 <div class="col-sm-12 col-lg-12">
                   <div class="card">
                     <div class="card-body card-list">
-                      <div class="card-list-item">
-                        <a href="riwayat-detail.html">
-                          <div class="d-flex justify-content-between align-items-center sc-link">
-                            <div class="media">
-                              <div class="wd-40 ht-40 bg-its-icon tx-color-its mg-r-15 mg-md-r-15 d-flex align-items-center justify-content-center rounded-its"><span class="tx-medium tx-color-its tx-24">1</span></div>
-                              <div class="media-body align-self-center">
-                                <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Sabtu, 06 Mar 2021</p>
-                                <p class="tx-color-03 tx-13">07.00 - 12.00</p>
-                                <span class="tx-13"><span class="tx-success"><i class="far fa-check-circle mg-r-5"></i>Selesai</span></span>
-                              </div>
+                        @foreach ($data['jadwal'] as $key => $item)
+                            @php
+                                $tgl_mulai = \Carbon\Carbon::parse($item->tgl_pendaftaran_mulai)->format('Y-m-d');
+                                $datetime_mulai = Carbon\Carbon::parse($tgl_mulai.' 00:00:00')->format('Y-m-d H:i:s');
+
+                                $tgl_akhir = \Carbon\Carbon::parse($item->tgl_pendaftaran_akhir)->addDay()->format('Y-m-d');
+                                $datetime_akhir = Carbon\Carbon::parse($tgl_akhir.' 23:23:59')->format('Y-m-d H:i:s');
+                                // false jika sudah tidak berada di range tgl diatas
+                                $cek_tgl = \Carbon\Carbon::now()->between($tgl_mulai, $tgl_akhir);
+                            @endphp
+                            <div class="card-list-item">
+                                <a href="
+                                    @if ($cek_tgl == false)
+                                        @if (\Carbon\Carbon::now()->greaterThan($datetime_mulai))
+                                            {{route('app.riwayat_detail',['id' => $item->id])}}
+                                        @else
+                                            {{ url('#') }}
+                                        @endif
+                                    @else
+                                        @if (\App\Models\T_pendaftaran::CounterPendaftar($item->id_vaksinasi) >= (int)$item->kuota)
+                                            {{route('app.riwayat_detail',['id' => $item->id])}}
+                                        @else
+                                            {{ url('#') }}
+                                        @endif
+                                    @endif">
+                                <div class="d-flex justify-content-between align-items-center sc-link">
+                                    <div class="media">
+                                        <div class="wd-40 ht-40 bg-its-icon tx-color-its mg-r-15 mg-md-r-15 d-flex align-items-center justify-content-center rounded-its"><span class="tx-medium tx-color-its tx-24">{{$key+1}}</span></div>
+                                        <div class="media-body align-self-center">
+                                            <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">{{Carbon\Carbon::parse($item->tgl_pelaksanaan)->translatedFormat('d F Y')}}</p>
+                                            <p class="tx-color-03 tx-13">{{\Carbon\Carbon::parse($item->jam_pelaksanaan_mulai)->format('H:i')}} - {{\Carbon\Carbon::parse($item->jam_pelaksanaan_akhir)->format('H:i')}}</p>
+                                            @if ($cek_tgl == false)
+                                                {{-- cek akan atau sudah ditutup --}}
+                                                @if (\Carbon\Carbon::now()->lessThanOrEqualTo($datetime_mulai))
+                                                    <span class="tx-13"><span class="tx-info"><i class="far fa-arrow-alt-circle-right mg-r-5"></i>Menunggu vaksinasi</span></span>
+                                                @else
+                                                    <span class="tx-13"><span class="tx-success"><i class="far fa-check-circle mg-r-5"></i>Selesai</span></span>
+                                                @endif
+                                            @else
+                                                @if (\App\Models\T_pendaftaran::CounterPendaftar($item->id_vaksinasi) >= (int)$item->kuota)
+                                                    <span class="tx-13"><span class="tx-success"><i class="far fa-check-circle mg-r-5"></i>Selesai</span></span>
+                                                @else
+                                                <span class="tx-13"><span class="tx-info"><i class="far fa-arrow-alt-circle-right mg-r-5"></i>Menunggu vaksinasi</span></span>
+                                                @endif
+                                            @endif
+
+                                        </div>
+                                    </div>
+                                    <div class="btn btn-icon btn-its-icon btn-hover">
+                                    <i data-feather="chevron-right"></i>
+                                    </div>
+                                </div>
+                                </a>
                             </div>
-                            <div class="btn btn-icon btn-its-icon btn-hover">
-                              <i data-feather="chevron-right"></i>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-                      <div class="card-list-item">
-                        <a href="#">
-                          <div class="d-flex justify-content-between align-items-center sc-link">
-                            <div class="media">
-                              <div class="wd-40 ht-40 bg-its-icon tx-color-its mg-r-15 mg-md-r-15 d-flex align-items-center justify-content-center rounded-its"><span class="tx-medium tx-color-its tx-24">2</span></div>
-                              <div class="media-body align-self-center">
-                                <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Sabtu, 03 Apr 2021</p>
-                                <p class="tx-color-03 tx-13">12.00 - 15.00</p>
-                                <span class="tx-13"><span class="tx-info"><i class="far fa-arrow-alt-circle-right mg-r-5"></i>Menunggu vaksinasi</span></span>
-                              </div>
-                            </div>
-                            <div class="btn btn-icon btn-its-icon btn-hover">
-                              <i data-feather="chevron-right"></i>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
+                        @endforeach
                     </div>
                   </div>
                 </div>

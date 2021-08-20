@@ -5,9 +5,7 @@
 <div class="content ht-100v pd-0" style="position: relative">
 
  @include('layout.navbar')
- @php
- dump($data['jadwal']);
-@endphp
+
 <div class="content-body ht-100p pd-t-80">
     <div class="container pd-x-0" id="content">
 

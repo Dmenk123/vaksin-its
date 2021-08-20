@@ -37,9 +37,9 @@
                 <div class="col-10 col-sm-10 col-lg-10 d-flex align-items-center">
                   <div class="d-flex align-items-center">
                     <div>
-                      <h5 class="tx-medium tx-montserrat mg-b-0">{{\Carbon\Carbon::parse($data['jadwal']->tgl_pelaksanaan)->translatedFormat('d F Y')}}</h5>
-                      <p class="mg-b-5">{{\Carbon\Carbon::parse($data['jadwal']->jam_pelaksanaan_mulai)->format('H:i')}} - {{\Carbon\Carbon::parse($data['jadwal']->jam_pelaksanaan_akhir)->format('H:i')}}</p>
-                      <span class="tx-13"><span class="tx-info"><i class="far fa-play-circle mg-r-5"></i>Pendaftaran dibuka</span></span>
+                        <h5 class="tx-medium tx-montserrat mg-b-0">{{\Carbon\Carbon::parse($data['jadwal']->tgl_pelaksanaan)->translatedFormat('d F Y')}}</h5>
+                        <p class="mg-b-5">{{\Carbon\Carbon::parse($data['jadwal']->jam_pelaksanaan_mulai)->format('H:i')}} - {{\Carbon\Carbon::parse($data['jadwal']->jam_pelaksanaan_akhir)->format('H:i')}}</p>
+                      <span class="tx-13"><span class="tx-success"><i class="far fa-check-circle mg-r-5"></i>Selesai</span></span>
                     </div>
                   </div>
                 </div>
@@ -77,20 +77,57 @@
                 <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Kuota</span>
                 <p class="mg-b-0">{{$data['jadwal']->kuota}} orang</p>
               </div>
+              <div class="card-list-text">
+                <span class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase tx-semibold">Vaksinasi Ke</span>
+                <p class="mg-b-0">{{$data['jadwal']->vaksinasi_ke}}1</p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-lg-12 mg-b-10 pd-l-5 pd-r-5 ht-70 ht-md-70 ht-lg-70">
-        </div>
-        <div class="col-sm-12 col-lg-12 mg-b-10 d-flex justify-content-center">
-            <div class="card pos-fixed z-index-10 b-40 shadow wd-90p wd-md-80p wd-lg-70p animated slideInUp">
-                <div class="card-body card-alert-success d-flex justify-content-between align-items-center">
-                    <span class="tx-montserrat tx-medium d-flex align-items-center"><i class="fa-lg fas fa-check-circle mg-l-10 mg-r-15 tx-success"></i>Kuota tersedia.</span>
-                    <form class="z-index-10">
-                      <button type="button" onclick="daftarVaksinasi('{{$data['jadwal']->id}}')" class="btn btn-its tx-montserrat tx-semibold">Daftar Vaksinasi</button>
-                    </form>
+        <div class="col-sm-12 col-lg-12 mg-b-10">
+          <div class="card">
+            <div class="card-header">
+              <div class="row row-xs">
+                <div class="col-10 col-sm-10 col-lg-10 d-flex align-items-center">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <h5 class="tx-medium tx-montserrat mg-b-0">KIPI</h5>
+                    </div>
+                  </div>
                 </div>
+                <div class="col-2 col-sm-2 col-lg-2 d-flex align-items-center justify-content-end">
+                  <a href="#tambahkipi" data-toggle="modal" data-animation="effect-scale" class="btn btn-white tx-montserrat tx-semibold float-right d-none d-lg-block"><i data-feather="plus" class="wd-10 mg-r-5"></i> Tambah</a>
+                  <a href="#tambahkipi" data-toggle="modal" data-animation="effect-scale" class="btn btn-white btn-icon tx-montserrat tx-medium float-right d-lg-none"><i data-feather="plus"></i></a>
+                </div>
+              </div>
             </div>
+            <div class="card-body pd-0">
+              <div class="table-responsive">
+                <table class="table table-borderless table-hover">
+                  <thead>
+                    <tr class="tx-10 tx-spacing-1 tx-color-03 tx-uppercase">
+                      <th class="wd-15p th-its">Tanggal Kejadian</th>
+                      <th class="wd-40p th-its">Gejala</th>
+                      <th class="wd-25p th-its">Tindakan</th>
+                      <th class="wd-15p th-its">Hubungi Dokter</th>
+                      <th class="wd-5p th-its tx-color-03"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="td-its tx-medium align-middle border-bottom">20 Mar 2021</td>
+                      <td class="td-its align-middle border-bottom">Pilek</td>
+                      <td class="td-its align-middle border-bottom">Obat pilek</td>
+                      <td class="td-its align-middle border-bottom">Sudah</td>
+                      <td class="td-its align-middle border-bottom tx-color-03">
+                        <a href="#hapuskipi" data-toggle="modal" data-animation="effect-scale"  class="btn btn-white btn-icon" role="button" data-toggle="modal" data-target="#hapuskipi" data-animation="effect-scale"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash wd-10"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div><!-- row -->

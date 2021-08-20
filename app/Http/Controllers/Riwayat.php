@@ -16,4 +16,24 @@ class Riwayat extends Controller
             ]
         ]);
     }
+
+    public function riwayat_detail($id)
+    {
+        $jadwal = \App\Models\T_vaksinasi::where('id', $id)->first();
+
+        if($jadwal) {
+            $cek_kuota = \App\Models\T_pendaftaran::CounterPendaftar($id);
+            if($cek_kuota >= (int)$jadwal->kuota) {
+                abort(404);
+            }
+         }else{
+            abort(404);
+        }
+
+		return view("riwayat.riwayat_detail")->with([
+            'data' => [
+                'jadwal' => $jadwal
+            ]
+        ]);
+    }
 }

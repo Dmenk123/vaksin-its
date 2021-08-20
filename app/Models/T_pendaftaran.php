@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
-class T_vaksinasi extends Model
+class T_pendaftaran extends Model
 {
-    protected $table = "t_vaksinasi";
+    protected $table = "t_pendaftaran";
     protected $primaryKey = "id";
     protected $guarded = [];
     use SoftDeletes;
@@ -16,6 +16,11 @@ class T_vaksinasi extends Model
     public function scopeMaxId($query)
     {
         return $query->max("id") + 1;
+    }
+
+    public function scopeCounterPendaftar($query, $id_vaksinasi)
+    {
+        return $query->where(['id_vaksinasi' => $id_vaksinasi, 'deleted_at' => null])->count();
     }
 
 }

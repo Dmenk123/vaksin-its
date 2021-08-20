@@ -50,7 +50,7 @@
     </style>
   </head>
   <body>
-
+    <!-- sidebar -->
     <aside class="aside aside-fixed">
                   <div class="aside-header">
                 <a href="../../index.html" class="tx-montserrat tx-semibold tx-18 aside-logo">myITS Vaksin</a>
@@ -68,9 +68,10 @@
                 </ul>
             </div>
     </aside>
+    <!-- end sidebar -->
 
     <div class="content ht-100v pd-0" style="position: relative">
-            <div class="content-header align-items-center justify-content-start pos-fixed wd-100p z-index-10">
+        <div class="content-header align-items-center justify-content-start pos-fixed wd-100p z-index-10">
           <div>
               <a href="../../index.html" class="tx-montserrat tx-semibold tx-18 d-lg-none">myITS Vaksin</a>
           </div>
@@ -115,6 +116,7 @@
         </div>
       </div>
 
+      <!-- content -->
       <div class="content-body ht-100p pd-t-80">
         <div class="container pd-x-0" id="content">
 
@@ -146,7 +148,7 @@
                         <div class="media">
                           <div class="wd-40 ht-40 bg-its-icon tx-color-its mg-r-15 mg-md-r-15 d-flex align-items-center justify-content-center rounded-its"><span class="tx-medium tx-color-its tx-24">1</span></div>
                           <div class="media-body align-self-center">
-                            <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Sabtu, 06 Mar 2021</p> 
+                            <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Sabtu, 06 Mar 2021</p>
                             <p class="tx-color-03 tx-13">07.00 - 12.00</p>
                             <span class="tx-13"><span class="tx-success"><i class="far fa-check-circle mg-r-5"></i>Selesai</span></span>
                           </div>
@@ -163,7 +165,7 @@
                         <div class="media">
                           <div class="wd-40 ht-40 bg-its-icon tx-color-its mg-r-15 mg-md-r-15 d-flex align-items-center justify-content-center rounded-its"><span class="tx-medium tx-color-its tx-24">2</span></div>
                           <div class="media-body align-self-center">
-                            <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Sabtu, 03 Apr 2021</p> 
+                            <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Sabtu, 03 Apr 2021</p>
                             <p class="tx-color-03 tx-13">12.00 - 15.00</p>
                             <span class="tx-13"><span class="tx-info"><i class="far fa-arrow-alt-circle-right mg-r-5"></i>Menunggu vaksinasi</span></span>
                           </div>
@@ -181,8 +183,9 @@
           </div><!-- row -->
         </div><!-- container -->
       </div>
+      <!-- end content -->
     </div>
-    
+
     <script src="../../lib/jquery/jquery.min.js"></script>
     <script src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../lib/feather-icons/feather.min.js"></script>
@@ -227,7 +230,7 @@
         $(document).on('click', '.allow-focus', function (e) {
             e.stopPropagation();
         });
-        
+
         //file name input
         $(".custom-file-input").on("change", function() {
             var fileName = $(this).val().split("\\").pop();

@@ -1,14 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Home;
-use App\Http\Controllers\Apbd;
-use App\Http\Controllers\Bantuan;
-use App\Http\Controllers\Csr;
-use App\Http\Controllers\Tarikdata;
-use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\Logout;
+use App\Http\Controllers\Vaksin;
+use App\Http\Controllers\Riwayat;
+// use App\Http\Controllers\Dashboard;
+use Illuminate\Support\Facades\Route;
 
 
 // Route::get('/', [Home::class, 'index'])->name('index')->middleware('user');
@@ -22,7 +20,7 @@ Route::group([
     'as' => 'app.',
     // 'middleware' => ['user'],
 ], function () {
-    Route::get('/riwayat', [Vaksin::class, 'riwayat'])->name('riwayat');
+    Route::get('/riwayat', [Riwayat::class, 'riwayat'])->name('riwayat');
     Route::get('/jadwal_vaksin', [Vaksin::class, 'jadwal_vaksin'])->name('jadwal_vaksin');
     // ###################### APBD #######################
     // Route::post('/datatable_apbd_sby', [Apbd::class, 'datatable_apbd_sby'])->name('datatable_apbd_sby');

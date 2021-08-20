@@ -53,11 +53,15 @@
     </style>
 </head>
 <!-- <body class="hold-transition sidebar-mini sidebar-collapse"> -->
-<body class="layout-top-nav">
+{{-- <body class="layout-top-nav"> --}}
+
+<body>
+@include('layout.sidebar')
 
 @yield('content')
 
-<div class="modal fade effect-scale" id="chgRoleUser" tabindex="-1" role="dialog" aria-labelledby="chgRoleUserLabel" aria-modal="true">
+
+{{-- <div class="modal fade effect-scale" id="chgRoleUser" tabindex="-1" role="dialog" aria-labelledby="chgRoleUserLabel" aria-modal="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content bg-white">
             <div class="modal-body">
@@ -78,7 +82,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <!-- jQuery -->
 <script src="{{asset('assets/template_web/lib/jquery/jquery.min.js')}}"></script>

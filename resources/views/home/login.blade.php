@@ -23,7 +23,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Anggaran Belanja</b> Covid</a>
+    <a href="#"><b>MyITS</b> Vaksin</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -48,7 +48,7 @@
         </div>
         <div class="row">
           <div class="col-8">
-            
+
           </div>
           <!-- /.col -->
           <div class="col-4">
@@ -84,29 +84,29 @@ $.ajaxSetup({
 
 
 $(document).ready(function(){
-    $("#login_form").submit(function(){   
+    $("#login_form").submit(function(){
         $(".text-danger").remove();
         event.preventDefault();
         var data = new FormData($('#login_form')[0]);
         $("#submitform").attr('disabled', true);
         $("#submitform span").text('Mohon tunggu...');
 
-        $.ajax({  
-            url:"{{route('login.cek')}}",  
-            method:"POST",  
+        $.ajax({
+            url:"{{route('login.cek')}}",
+            method:"POST",
             headers: { "X-CSRF-TOKEN": $("meta[name=csrf-token]").attr("content") },
             data: data,
             datatype:'json',
             processData: false,
             contentType: false,
-            success:function(data)  
-            {  
+            success:function(data)
+            {
                 if($.isEmptyObject(data.error)){
-                
+
                     if(data.status == true){
                         $("#submitform").removeAttr('disabled');
                         $("#submitform span").text('Simpan Data');
-                        $("form").each(function() { this.reset() });  
+                        $("form").each(function() { this.reset() });
                         swal.fire({
                             title: "Pemberitahuan",
                             text: "Anda Berhasil Login !",
@@ -139,9 +139,9 @@ $(document).ready(function(){
                 $("#submitform").removeAttr('disabled');
                 $("#submitform span").text('Log In');
             }
-        });  
-    }); 
-}); 
+        });
+    });
+});
 </script>
 </body>
 </html>

@@ -1,16 +1,15 @@
 <?php
 
-use App\Http\Controllers\Home;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\Logout;
 use App\Http\Controllers\Vaksin;
 use App\Http\Controllers\Riwayat;
-// use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
 
 
-// Route::get('/', [Home::class, 'index'])->name('index')->middleware('user');
-Route::get('/', [Home::class, 'index'])->name('index');
+Route::get('/', [Dashboard::class, 'index'])->name('index')->middleware('user');
+// Route::get('/', [Home::class, 'index'])->name('index');
 Route::get('/login', [Login::class, 'index'])->name('login');
 Route::post('/login', [Login::class, 'cek'])->name('login.cek');
 Route::get('/generate_hash/{param1}', [Login::class, 'generate_hash'])->name('generate_hash');
@@ -18,7 +17,7 @@ Route::get('/generate_hash/{param1}', [Login::class, 'generate_hash'])->name('ge
 Route::group([
     'prefix' => 'app',
     'as' => 'app.',
-    // 'middleware' => ['user'],
+    'middleware' => ['user'],
 ], function () {
     Route::get('/riwayat', [Riwayat::class, 'riwayat'])->name('riwayat');
     Route::get('/riwayat_detail/{id}', [Riwayat::class, 'riwayat_detail'])->name('riwayat_detail');
